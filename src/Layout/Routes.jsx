@@ -9,7 +9,6 @@ import Home from '../Core/Home'
 import NotFound from '../Core/NotFound'
 
 const Layout = () => {
-    console.log("works")
   return (
     <div className="layout">
       <Routes>
