@@ -6,13 +6,14 @@ import { Route, Routes } from 'react-router-dom'
 
 //Core Components
 import Home from '../Core/Home'
-import NotFound from './NotFound'
+import NotFound from '../Core/NotFound'
 
 const Layout = () => {
   return (
     <div className="layout">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/" element={<NotFound />} />
       </Routes>
     </div>
   )
