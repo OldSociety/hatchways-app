@@ -13,9 +13,32 @@ code {
 }
 
 img {
-  border:.5px solid grey;   
+  border:.1px solid rgb(235, 234, 234);   
   background-color: #FFFFFF;
   height: 100px;
   border-radius:50%;
   width: 100px;
 }
+
+.profile {
+  border-bottom: .2px solid rgb(244, 240, 240);
+}
+
+html, body, #root, #root > div {
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box; 
+}
+
+.studentProfiles {
+  overflow-y: scroll;
+  max-width: 75%;
+  max-height:50%;
+  background-color: white;
+  margin-top: 25%;
+
+}
+
+::-webkit-scrollbar { 
+  display: none; 
+} 
