@@ -53,19 +53,25 @@ const StudentProfile = () => {
                   <ul>
                     <li key={index}>
                       <div className="profile">
+                          <div className="row">
+                          <div className="col-2">
                         <img
-                          className="icon"
+                          className="icon img-fluid"
                           src={`${pic}`}
                           alt={`${firstName}`}
                         />
-                        <div className="name fw-bold fs-1">
-                          {`${firstName.toUpperCase()} ${lastName.toUpperCase()}`}
                         </div>
-                        <div className="">{`Email: ${email}`}</div>
-                        <div className="">{`Company: ${company}`}</div>
-                        <div className="">{`Skill: ${skill}`}</div>
-                        <div className="">
-                          {`Average: ${findAverage(grades)}`}
+                        <div className="col-10">
+                          <div className="name fw-bold fs-1">
+                            {`${firstName.toUpperCase()} ${lastName.toUpperCase()}`}
+                          </div>
+                          <div className="">{`Email: ${email}`}</div>
+                          <div className="">{`Company: ${company}`}</div>
+                          <div className="">{`Skill: ${skill}`}</div>
+                          <div className="">
+                            {`Average: ${findAverage(grades)}`}
+                          </div>
+                        </div>
                         </div>
                       </div>
                     </li>
