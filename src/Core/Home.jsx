@@ -3,7 +3,7 @@ import StudentProfile from '../Components/StudentProfile'
 
 const Home = () => {
   return (
-    <div className='studentProfiles container-fluid'>
+    <div className="studentProfiles container-fluid">
       <StudentProfile />
     </div>
   )

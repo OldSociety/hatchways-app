@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import Search from './Search/Search'
 
 const StudentProfile = () => {
   const [fetchedData, setFetchedData] = useState(null)
   const [pageError, setPageError] = useState(null)
+  let [search, setSearch] = useState('')
+
+  let api = `https://api.hatchways.io/assessment/students/`
 
   useEffect(() => {
     //set up with api call
@@ -10,7 +14,7 @@ const StudentProfile = () => {
       const abortController = new AbortController()
       setPageError(null)
 
-      fetch('https://api.hatchways.io/assessment/students')
+      fetch(api)
         .then((response) => response.json())
         .then(setFetchedData)
         .catch(setPageError)
@@ -26,6 +30,7 @@ const StudentProfile = () => {
       <div className="row">
         <div className="container">
           <div className="col-12">
+            <Search setSearch={setSearch} />
             <div className="row">
               {students.map((student, index) => {
                 let {
@@ -48,35 +53,37 @@ const StudentProfile = () => {
                   )
                   return average
                 }
-
+                let fullName = `${firstName.toLowerCase()} ${lastName.toLowerCase()}`
+                if (fullName.toLowerCase().includes(search.toLowerCase())) {
                 return (
                   <ul>
                     <li key={index}>
                       <div className="profile">
-                          <div className="row">
+                        <div className="row">
                           <div className="col-2">
-                        <img
-                          className="icon img-fluid"
-                          src={`${pic}`}
-                          alt={`${firstName}`}
-                        />
-                        </div>
-                        <div className="col-10">
-                          <div className="name fw-bold fs-1">
-                            {`${firstName.toUpperCase()} ${lastName.toUpperCase()}`}
+                            <img
+                              className="icon img-fluid"
+                              src={`${pic}`}
+                              alt={`${firstName}`}
+                            />
                           </div>
-                          <div className="">{`Email: ${email}`}</div>
-                          <div className="">{`Company: ${company}`}</div>
-                          <div className="">{`Skill: ${skill}`}</div>
-                          <div className="">
-                            {`Average: ${findAverage(grades)}`}
+                          <div className="col-10">
+                            <div className="name fw-bold fs-1">
+                              {`${firstName.toUpperCase()} ${lastName.toUpperCase()}`}
+                            </div>
+                            <div className="">{`Email: ${email}`}</div>
+                            <div className="">{`Company: ${company}`}</div>
+                            <div className="">{`Skill: ${skill}`}</div>
+                            <div className="">
+                              {`Average: ${findAverage(grades)}`}
+                            </div>
                           </div>
-                        </div>
                         </div>
                       </div>
                     </li>
                   </ul>
                 )
+            }
               })}
             </div>
           </div>

@@ -1,0 +1,15 @@
+.input {
+  width: 100%;
+  border-bottom: 2px solid rgb(224, 221, 221);
+
+  padding: 10px 15px;
+  &:focus {
+    outline: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .input {
+    width: 80%;
+  }
+}
