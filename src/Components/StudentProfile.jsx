@@ -102,7 +102,7 @@ const StudentProfile = () => {
                                   />
                                 </div>
                               </div>
-                              <div className="collapse hide" id="myCollapse">
+                              <div className="collapse hide" id={`collapse-${index}`}>
                                 {grades.map((grade, index) => {
                                   return (
                                     <>
@@ -120,7 +120,7 @@ const StudentProfile = () => {
                                   type="button"
                                   className="btn btn-white"
                                   data-bs-toggle="collapse"
-                                  data-bs-target="#myCollapse"
+                                  data-bs-target={`#collapse-${index}`}
                                 >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
