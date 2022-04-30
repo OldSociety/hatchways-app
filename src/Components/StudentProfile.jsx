@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Search from './Search/SearchName'
 import SearchTag from './Search/SearchTag'
-import Tags from './Tags'
+import TagsInput from './TagsInput'
 
 const StudentProfile = () => {
   const [fetchedData, setFetchedData] = useState(null)
   const [pageError, setPageError] = useState(null)
   let [search, setSearch] = useState('')
   let [tagSearch, setTagSearch] = useState('')
-  let [createTag, setCreateTag] = useState('')
+
+  const selectedTags = (tags) => tags
 
   let api = `https://api.hatchways.io/assessment/students/`
 
@@ -28,6 +29,7 @@ const StudentProfile = () => {
     fetchData()
   }, [])
 
+
   if (fetchedData) {
     let { students } = fetchedData
     return (
@@ -35,16 +37,15 @@ const StudentProfile = () => {
         <div className="container">
           <div className="col-12">
             <Search setSearch={setSearch} />
-            <SearchTag setSearch={setTagSearch} />
+            <SearchTag setTagSearch={setTagSearch} />
             <div className="row">
               {students.map((student, index) => {
                 let {
-                  city,
+                  id,
                   company,
                   email,
                   firstName,
                   grades,
-                  id,
                   lastName,
                   pic,
                   skill,
@@ -61,9 +62,12 @@ const StudentProfile = () => {
                 let fullName = firstName.toLowerCase() + lastName.toLowerCase() // search full names
                 let cleanSearch = search.toLowerCase().split(' ').join('') // ignore spaces in search
                 let cleanTagSearch = tagSearch.toLowerCase().split(' ').join('') // ignore spaces in search
-                let tag = null
 
-                if (fullName.toLowerCase().includes(cleanSearch) || tag.toLowerCase().includes(cleanTagSearch)) {
+                
+                if (
+                  fullName.toLowerCase().includes(cleanSearch) &&
+                  skill.toLowerCase().includes(cleanTagSearch)
+                ) {
                   return (
                     <ul>
                       <li key={index}>
@@ -87,10 +91,12 @@ const StudentProfile = () => {
                                 {`Average: ${findAverage(grades)}`}
                               </div>
                               <div className="tag">
-                                  <Tags setCreateTag={setCreateTag}/>
+                                <TagsInput
+                                  selectedTags={selectedTags}
+                                />
                               </div>
                             </div>
-                            <div class="collapse show" id="myCollapse">
+                            <div className="collapse hide" id="myCollapse">
                               {grades.map((grade, index) => {
                                 return (
                                   <>
@@ -106,7 +112,7 @@ const StudentProfile = () => {
                             <div className="col-1">
                               <button
                                 type="button"
-                                class="btn btn-white"
+                                className="btn btn-white"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#myCollapse"
                               >
@@ -115,7 +121,7 @@ const StudentProfile = () => {
                                   width="10"
                                   height="10"
                                   fill="currentColor"
-                                  class="bi bi-plus"
+                                  className="bi bi-plus"
                                   viewBox="0 0 16 16"
                                 >
                                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
