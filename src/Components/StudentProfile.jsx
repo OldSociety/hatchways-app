@@ -29,9 +29,7 @@ const StudentProfile = () => {
     }
     fetchData()
   }, [])
-
-  console.log('tags', tags[1])
-
+  
   if (fetchedData) {
     let { students } = fetchedData
     return (
