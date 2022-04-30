@@ -43,3 +43,7 @@ html, body, #root, #root > div {
 ::-webkit-scrollbar { 
   display: none; 
 } 
+
+ul {
+  list-style: none;
+}

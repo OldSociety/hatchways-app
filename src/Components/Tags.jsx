@@ -1,17 +1,16 @@
 import React from 'react'
-import styles from './Search.module.scss'
+import styles from './Search/Search.module.scss'
 
-const Search = ({ setSearch }) => {
+const Tags = ({ setCreateTag }) => {
   return (
     <form
       className={`${styles.search} d-flex flex-sm-row flex-column align-items-center justify-content-center gap-4 mb-5`}
     >
       <input
         onChange={(e) => {
-          setSearch(e.target.value.replace(/ +/g," "))
-          console.log(e.target.value)
+          setCreateTag(e.target.value)
         }}
-        placeholder="Search by name"
+        placeholder="Add a tag"
         className={styles.input}
         type="text"
       />
@@ -19,4 +18,4 @@ const Search = ({ setSearch }) => {
   )
 }
 
-export default Search
+export default Tags
