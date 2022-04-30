@@ -7,6 +7,7 @@ const StudentProfile = () => {
   const [fetchedData, setFetchedData] = useState(null)
   const [pageError, setPageError] = useState(null)
   let [search, setSearch] = useState('')
+  let [tags, setTags] = useState({})
   let [tagSearch, setTagSearch] = useState('')
 
   const selectedTags = (tags) => tags
@@ -29,6 +30,7 @@ const StudentProfile = () => {
     fetchData()
   }, [])
 
+  console.log('tags', tags[1])
 
   if (fetchedData) {
     let { students } = fetchedData
@@ -63,76 +65,83 @@ const StudentProfile = () => {
                 let cleanSearch = search.toLowerCase().split(' ').join('') // ignore spaces in search
                 let cleanTagSearch = tagSearch.toLowerCase().split(' ').join('') // ignore spaces in search
 
-                
-                if (
-                  fullName.toLowerCase().includes(cleanSearch) &&
-                  skill.toLowerCase().includes(cleanTagSearch)
-                ) {
-                  return (
-                    <ul>
-                      <li key={index}>
-                        <div className="profile">
-                          <div className="row">
-                            <div className="col-2">
-                              <img
-                                className="icon img-fluid"
-                                src={`${pic}`}
-                                alt={`${firstName}`}
-                              />
-                            </div>
-                            <div className="col-9">
-                              <div className="name fw-bold fs-1">
-                                {`${firstName.toUpperCase()} ${lastName.toUpperCase()}`}
-                              </div>
-                              <div className="">{`Email: ${email}`}</div>
-                              <div className="">{`Company: ${company}`}</div>
-                              <div className="">{`Skill: ${skill}`}</div>
-                              <div className="">
-                                {`Average: ${findAverage(grades)}`}
-                              </div>
-                              <div className="tag">
-                                <TagsInput
-                                  selectedTags={selectedTags}
+                if (fullName.toLowerCase().includes(cleanSearch)) {
+                  if (
+                    cleanTagSearch.length === 0 ||
+                    (tags[id] &&
+                      tags[id].filter((tag) =>
+                        tag.toLowerCase().includes(cleanTagSearch)
+                      ).length > 0)
+                  ) {
+                    return (
+                      <ul>
+                        <li key={index}>
+                          <div className="profile">
+                            <div className="row">
+                              <div className="col-2">
+                                <img
+                                  className="icon img-fluid"
+                                  src={`${pic}`}
+                                  alt={`${firstName}`}
                                 />
                               </div>
-                            </div>
-                            <div className="collapse hide" id="myCollapse">
-                              {grades.map((grade, index) => {
-                                return (
-                                  <>
-                                    <ul>
-                                      <li>
-                                        <div className="list-style-none text-decoration-none">{`Test ${index}   ${grade}`}</div>
-                                      </li>
-                                    </ul>
-                                  </>
-                                )
-                              })}
-                            </div>
-                            <div className="col-1">
-                              <button
-                                type="button"
-                                className="btn btn-white"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#myCollapse"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="10"
-                                  height="10"
-                                  fill="currentColor"
-                                  className="bi bi-plus"
-                                  viewBox="0 0 16 16"
+                              <div className="col-9">
+                                <div className="name fw-bold fs-1">
+                                  {`${firstName.toUpperCase()} ${lastName.toUpperCase()}`}
+                                </div>
+                                <div className="">{`Email: ${email}`}</div>
+                                <div className="">{`Company: ${company}`}</div>
+                                <div className="">{`Skill: ${skill}`}</div>
+                                <div className="">
+                                  {`Average: ${findAverage(grades)}`}
+                                </div>
+                                <div className="tag">
+                                  <TagsInput
+                                    selectedTags={selectedTags}
+                                    tags={tags}
+                                    setTags={setTags}
+                                    id={id}
+                                  />
+                                </div>
+                              </div>
+                              <div className="collapse hide" id="myCollapse">
+                                {grades.map((grade, index) => {
+                                  return (
+                                    <>
+                                      <ul>
+                                        <li>
+                                          <div className="list-style-none text-decoration-none">{`Test ${index}   ${grade}`}</div>
+                                        </li>
+                                      </ul>
+                                    </>
+                                  )
+                                })}
+                              </div>
+                              <div className="col-1">
+                                <button
+                                  type="button"
+                                  className="btn btn-white"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target="#myCollapse"
                                 >
-                                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                                </svg>
-                              </button>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="10"
+                                    height="10"
+                                    fill="currentColor"
+                                    className="bi bi-plus"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                  </svg>
+                                </button>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </li>
-                    </ul>
-                  )
+                        </li>
+                      </ul>
+                    )
+                  }
                 }
               })}
             </div>
